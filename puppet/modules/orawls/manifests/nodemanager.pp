@@ -96,7 +96,7 @@ define orawls::nodemanager (
       $nativeLib         = 'solaris/x64'
       $suCommand         = "su - ${os_user}"
       $java_statement    = 'java -d64'
-      $netstat_statement = "/bin/netstat -n -P tcp | /bin/grep LISTEN | /bin/grep '.${nodemanager_port}'"
+      $netstat_statement = "/bin/netstat -an -P tcp | /bin/grep LISTEN | /bin/grep '.${nodemanager_port}'"
     }
     default: {
       fail("Unrecognized operating system ${::kernel}, please use it on a Linux or Solaris host")
