@@ -3,10 +3,14 @@
 hosts:
   'localhost':
     ip:                "127.0.0.1"
-    host_aliases:      'localhost.localdomain,localhost4,localhost4.localdomain4'
+    host_aliases:
+      - 'localhost.localdomain'
+      - 'localhost4'
+      - 'localhost4.localdomain4'
   'adminsol.example.com':
     ip:                "10.10.10.10"
-    host_aliases:      - 'adminsol'
+    host_aliases:
+      - 'adminsol'
 
 # global WebLogic vars
 wls_oracle_base_home_dir: &wls_oracle_base_home_dir "/opt/oracle"

@@ -1,5 +1,7 @@
 ## Oracle Solaris 11.2 with WebLogic 12.1.3
 
+Tested on vagrant 1.7.3 with Oracle virtualbox 5
+
 The reference implementation of https://github.com/biemond/biemond-orawls
 optimized for linux, solaris
 

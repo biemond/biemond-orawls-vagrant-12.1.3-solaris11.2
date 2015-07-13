@@ -19,12 +19,18 @@ def createAdminStartupPropertiesFile(directoryPath, args):
   fileNew.flush()
   fileNew.close()
 
-def createMachine(type, name, address):
+def createMachine(type, name, address, nodemanager_secure_listener):
   cd('/')
   create(name,type)
   cd(type + '/' + name)
   create(name,'NodeManager')
   cd('NodeManager/' + name)
+
+  if nodemanager_secure_listener == true:
+    set('NMType','SSL')
+  else:
+    set('NMType','Plain')
+
   set('ListenAddress',address)
 
 def changeDatasource(datasource, username, password, db_url):
@@ -109,17 +115,25 @@ def changeLog(type, name, log_folder):
   set('RotationType','byTime')
   set('FileTimeSpan',24)
 
-def changeSSL(server, jsse_enabled):
+def changeSSLwithPort(server, jsse_enabled, ssl_listen_port):
   cd('/Server/'+server)
   create(server,'SSL')
   cd('SSL/'+server)
-  set('Enabled'                    , 'False')
   set('HostNameVerificationIgnored', 'True')
+
+  if ssl_listen_port:
+    set('Enabled'   , 'True')
+    set('ListenPort', int(ssl_listen_port))
+  else:
+    set('Enabled'   , 'False')
 
   if jsse_enabled == true:
     set('JSSEEnabled','True')
   else:
     set('JSSEEnabled','False')
+
+def changeSSL(server, jsse_enabled):
+  changeSSLwithPort(server, jsse_enabled, None)
 
 def changeServerArguments(server, java_arguments):
   print "changeDefaultServerAttributes for server " + server
